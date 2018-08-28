@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using App.Metrics;
 using App.Metrics.Filtering;
+using App.Metrics.Formatters.InfluxDB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,14 +42,18 @@ namespace Moon.AppMetricsMonitor
                     x.InfluxDb.UserName = "user";
                     x.InfluxDb.CreateDataBaseIfNotExists = true;
                     x.InfluxDb.Password = "123456";
-                    x.HttpPolicy.BackoffPeriod = TimeSpan.FromSeconds(30);
-                    x.HttpPolicy.FailuresBeforeBackoff = 5;
-                    //超时时间
-                    x.HttpPolicy.Timeout = TimeSpan.FromSeconds(10);
+             
                     //刷新时间
                     x.FlushInterval = TimeSpan.FromSeconds(20);
 
                     x.Filter = new MetricsFilter().WhereType(MetricType.Timer);
+
+                    x.InfluxDb.RetensionPolicy = "rp";
+                    x.InfluxDb.CreateDataBaseIfNotExists = true;
+                    x.HttpPolicy.BackoffPeriod = TimeSpan.FromSeconds(30);
+                    x.HttpPolicy.FailuresBeforeBackoff = 5;
+                    x.HttpPolicy.Timeout = TimeSpan.FromSeconds(10);
+                    x.MetricsOutputFormatter = new MetricsInfluxDbLineProtocolOutputFormatter();
                 })
                 .Build();
 
