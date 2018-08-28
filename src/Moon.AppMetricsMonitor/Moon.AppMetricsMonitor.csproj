@@ -5,11 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="App_Filters\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="App.Metrics.AspNetCore.Mvc" Version="2.0.0" />
+    <PackageReference Include="App.Metrics.AspNetCore.Tracking" Version="2.0.0" />
+    <PackageReference Include="App.Metrics.Reporting.InfluxDB" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
 </Project>
