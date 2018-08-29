@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moon.AppMetricsMonitor", "src\Moon.AppMetricsMonitor\Moon.AppMetricsMonitor.csproj", "{D1EBE744-58C3-4979-98DF-FE7B3DFD60B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moon.AppMetricsMonitor", "src\Moon.AppMetricsMonitor\Moon.AppMetricsMonitor.csproj", "{D1EBE744-58C3-4979-98DF-FE7B3DFD60B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moon.Reporting.AliTSDB", "Moon.Reporting.AliTSDB\Moon.Reporting.AliTSDB.csproj", "{7CA609CB-A24A-4CA1-B8BC-823A8BC6829C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moon.Formatters.AliTSDB", "src\Moon.Formatters.AliTSDB\Moon.Formatters.AliTSDB.csproj", "{ADAE7BE7-C261-4185-81E4-0138BC6B5260}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Metrics.Reporting.InfluxDB", "..\InfluxDB\src\App.Metrics.Reporting.InfluxDB\App.Metrics.Reporting.InfluxDB.csproj", "{61726D9E-53C3-4420-8858-C39D541A0F4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Metrics.Formatters.InfluxDB", "..\InfluxDB\src\App.Metrics.Formatters.InfluxDB\App.Metrics.Formatters.InfluxDB.csproj", "{E3834665-3D09-4998-A041-7C19AECEC98C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{D1EBE744-58C3-4979-98DF-FE7B3DFD60B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1EBE744-58C3-4979-98DF-FE7B3DFD60B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1EBE744-58C3-4979-98DF-FE7B3DFD60B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CA609CB-A24A-4CA1-B8BC-823A8BC6829C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CA609CB-A24A-4CA1-B8BC-823A8BC6829C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CA609CB-A24A-4CA1-B8BC-823A8BC6829C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CA609CB-A24A-4CA1-B8BC-823A8BC6829C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADAE7BE7-C261-4185-81E4-0138BC6B5260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAE7BE7-C261-4185-81E4-0138BC6B5260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAE7BE7-C261-4185-81E4-0138BC6B5260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADAE7BE7-C261-4185-81E4-0138BC6B5260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61726D9E-53C3-4420-8858-C39D541A0F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61726D9E-53C3-4420-8858-C39D541A0F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61726D9E-53C3-4420-8858-C39D541A0F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61726D9E-53C3-4420-8858-C39D541A0F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3834665-3D09-4998-A041-7C19AECEC98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3834665-3D09-4998-A041-7C19AECEC98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3834665-3D09-4998-A041-7C19AECEC98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3834665-3D09-4998-A041-7C19AECEC98C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
