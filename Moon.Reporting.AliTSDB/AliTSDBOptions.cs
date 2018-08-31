@@ -28,7 +28,7 @@ namespace Moon.Reporting.AliTSDB
             {
                 //if (string.IsNullOrWhiteSpace(Database)) { return null; }
 
-                var endpoint = $"http://{AliTSDB_IP}:{AliTSDB_Port}/api/put?sync_timeout={SYNC_TIMEOUT_MS}";
+                var endpoint = $"http://{AliTSDB_IP}:{AliTSDB_Port}/api/put?details";
 
                 return endpoint;
             }

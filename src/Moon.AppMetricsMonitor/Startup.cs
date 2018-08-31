@@ -39,24 +39,7 @@ namespace Moon.AppMetricsMonitor
                     //x.AddAppTag("Moon APP");
                     //x.AddEnvTag("Developer");
                     //x.AddServerTag("LocationServer");
-                })
-                //输出到控制台
-                //.Report.ToConsole(x =>
-                //{
-                //    x.FlushInterval = TimeSpan.FromSeconds(30);
-                //    //x.Filter = metricsFilter;
-
-                //    x.MetricsOutputFormatter = new MetricsJsonOutputFormatter();
-                //})
-               .Report.ToAliTSDB(x =>
-               {
-                   x.AliTSDB.AliTSDB_IP = "ts-uf6ey6yyv05v19473.hitsdb.tsdb.aliyuncs.com";
-                   x.AliTSDB.AliTSDB_Port = 8242;
-
-                   x.FlushInterval= TimeSpan.FromSeconds(50);
-
-                   x.MetricsOutputFormatter = new MetricsAliTSDBLineProtocolOutputFormatter();
-               })
+                })                
                 //输出到 InfluxDB 
                 //.Report.ToInfluxDb(x =>
                 //{

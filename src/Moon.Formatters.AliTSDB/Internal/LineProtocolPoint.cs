@@ -1,4 +1,5 @@
 ﻿using App.Metrics;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,51 +50,37 @@ namespace Moon.Formatters.AliTSDB.Internal
 
         public DateTime? UtcTimestamp { get; }
 
-        public void Write(TextWriter textWriter, bool writeTimestamp = true)
+        public void Write(JArray array)
         {
-            if (textWriter == null)
-            {
-                throw new ArgumentNullException(nameof(textWriter));
-            }
+            var json = new JObject();
 
-            textWriter.Write(LineProtocolSyntax.EscapeName(Measurement));
+            json.Add("metric", new JValue(Measurement));
+            json.Add("timestamp", new JValue(LineProtocolSyntax.FormatTimestamp(DateTime.UtcNow)));
+
+            var tags = new JObject();
 
             if (Tags.Count > 0)
             {
                 for (var i = 0; i < Tags.Count; i++)
                 {
-                    textWriter.Write(',');
-                    textWriter.Write(LineProtocolSyntax.EscapeName(Tags.Keys[i]));
-                    textWriter.Write('=');
-                    textWriter.Write(LineProtocolSyntax.EscapeName(Tags.Values[i]));
+                    tags.Add(Tags.Keys[i], new JValue(LineProtocolSyntax.EscapeName(Tags.Values[i])));
                 }
             }
 
-            var fieldDelim = ' ';
-
             foreach (var f in Fields)
             {
-                textWriter.Write(fieldDelim);
-                fieldDelim = ',';
-                textWriter.Write(LineProtocolSyntax.EscapeName(f.Key));
-                textWriter.Write('=');
-                textWriter.Write(LineProtocolSyntax.FormatValue(f.Value));
+                if (f.Key == "p75" || f.Key == "p95" || f.Key == "p98" || f.Key == "p99" || f.Key == "value")
+                {
+                    var tempjson = (JObject)json.DeepClone();
+                    var temptags = (JObject)tags.DeepClone();
+
+                    temptags.Add("sample", f.Key);
+                    tempjson.Add("tags", temptags);
+                    tempjson.Add("value", LineProtocolSyntax.FormatValue(f.Value));
+
+                    array.Add(tempjson);
+                }
             }
-
-            if (!writeTimestamp)
-            {
-                return;
-            }
-
-            textWriter.Write(' ');
-
-            if (UtcTimestamp == null)
-            {
-                textWriter.Write(LineProtocolSyntax.FormatTimestamp(DateTime.UtcNow));
-                return;
-            }
-
-            textWriter.Write(LineProtocolSyntax.FormatTimestamp(UtcTimestamp.Value));
         }
     }
 }

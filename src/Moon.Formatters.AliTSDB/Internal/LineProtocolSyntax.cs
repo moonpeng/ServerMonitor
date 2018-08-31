@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -7,9 +8,9 @@ namespace Moon.Formatters.AliTSDB.Internal
 {
     internal class LineProtocolSyntax
     {
-        private static readonly DateTime Origin = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly DateTime Origin = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local);
 
-        private static readonly Dictionary<Type, Func<object, string>> Formatters = new Dictionary<Type, Func<object, string>>
+        private static readonly Dictionary<Type, Func<object, JValue>> Formatters = new Dictionary<Type, Func<object, JValue>>
                                                                                     {
                                                                                         { typeof(sbyte), FormatInteger },
                                                                                         { typeof(byte), FormatInteger },
@@ -34,35 +35,43 @@ namespace Moon.Formatters.AliTSDB.Internal
             }
 
             return nameOrKey
-                .Replace("=", "\\=")
-                .Replace(" ", "\\ ")
-                .Replace(",", "\\,");
+                //.Replace("=", "\\=")
+                .Replace(" ", "_")
+                //.Replace(",", "\\,")
+                ;
         }
 
-        public static string FormatTimestamp(DateTime utcTimestamp)
+        public static string FormatTimestamp(DateTime time)
         {
-            var t = utcTimestamp - Origin;
-            return (t.Ticks * 100L).ToString(CultureInfo.InvariantCulture);
+            var t = time.Ticks - TimeZone.CurrentTimeZone.ToLocalTime(Origin).Ticks;
+
+            return (t / 10000).ToString();
         }
 
-        public static string FormatValue(object value)
+        public static JValue FormatValue(object value)
         {
             var v = value ?? string.Empty;
-            Func<object, string> format;
+            Func<object, JValue> format;
 
             return Formatters.TryGetValue(v.GetType(), out format)
                 ? format(v)
                 : FormatString(v.ToString());
         }
 
-        private static string FormatBoolean(object b) { return (bool)b ? "t" : "f"; }
+        private static JValue FormatBoolean(object b) { return new JValue((bool)b); }
 
-        private static string FormatFloat(object f) { return ((IFormattable)f).ToString(null, CultureInfo.InvariantCulture); }
+        private static JValue FormatFloat(object f)
+        {
+            return new JValue(Convert.ToDecimal(f));
+        }
 
-        private static string FormatInteger(object i) { return ((IFormattable)i).ToString(null, CultureInfo.InvariantCulture) + "i"; }
+        private static JValue FormatInteger(object i)
+        {
+            return new JValue(Convert.ToInt64(i));
+        }
 
-        private static string FormatString(string s) { return "\"" + s.Replace("\"", "\\\"") + "\""; }
+        private static JValue FormatString(string s) { return new JValue("\"" + s.Replace("\"", "\\\"") + "\""); }
 
-        private static string FormatTimespan(object ts) { return ((TimeSpan)ts).TotalMilliseconds.ToString(CultureInfo.InvariantCulture); }
+        private static JValue FormatTimespan(object ts) { return new JValue(((TimeSpan)ts).TotalMilliseconds.ToString(CultureInfo.InvariantCulture)); }
     }
 }

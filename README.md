@@ -79,6 +79,20 @@ services.AddMetricsReportScheduler();
 - `app.UseMetricsRequestTrackingMiddleware()` 开启HTTP请求请求信息收集中间件
 
 
+## HiTSDB (阿里云时序数据库)
+
+> OpenTSDB是一个分布式、可伸缩的时序数据库，支持高达每秒百万级的写入能力，支持毫秒级精度的数据存储，不需要降精度也可以永久保存数据。其优越的写性能和存储能力，得益于其底层依赖的HBase，HBase采用LSM树结构存储引擎加上分布式的架构，提供了优越的写入能力，底层依赖的完全水平扩展的HDFS提供了优越的存储能力。OpenTSDB对HBase深度依赖，并且根据HBase底层存储结构的特性，做了很多巧妙的优化。
+
+### 数据模型
+
+OpenTSDB采用按指标建模的方式，一个数据点会包含以下组成部分：
+
+- metric：时序数据指标的名称，例如sys.cpu.user，stock.quote等。
+- timestamp：秒级或毫秒级的Unix时间戳，代表该时间点的具体时间。
+- tags：一个或多个标签，也就是描述主体的不同的维度。Tag由TagKey和TagValue组成，TagKey就是维度，TagValue就是该维度的值。
+- value：该指标的值，目前只支持数值类型的值。
+
+
 ## App.Metrics Apdex
 
 Apdex (Application Performance Index)  基于以下三个维度来衡量用户满意度

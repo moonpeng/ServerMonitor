@@ -23,13 +23,13 @@ namespace Moon.Reporting.AliTSDB.Client
         {
             try
             {
-                var content = new StringContent(payload, Encoding.UTF8);
+                var content = new StringContent(payload, Encoding.UTF8, "application/json");
 
                 var response = await _httpClient.PostAsync(_aliTSDBOptions.Endpoint, content, cancellationToken);
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    var errorMessage = $"Failed to write to InfluxDB - StatusCode: {response.StatusCode} Reason: {response.ReasonPhrase}";
+                    var errorMessage = $"Failed to write to AliTSDB - StatusCode: {response.StatusCode} Reason: {await response.Content.ReadAsStringAsync()}";
 
                     return new LineProtocolWriteResult(false, errorMessage);
                 }

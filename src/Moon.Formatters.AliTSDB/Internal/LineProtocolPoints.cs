@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,11 +30,15 @@ namespace Moon.Formatters.AliTSDB.Internal
 
             var points = _points.ToList();
 
+            var array = new JArray();
+
             foreach (var point in points)
             {
-                point.Write(textWriter, writeTimestamp);
-                textWriter.Write('\n');
+                point.Write(array);
             }
+
+
+            textWriter.Write(array.ToString());
         }
     }
 }
