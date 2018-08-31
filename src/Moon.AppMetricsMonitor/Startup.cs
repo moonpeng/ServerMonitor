@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Moon.AppMetricsMonitor.Internal;
 
 namespace Moon.AppMetricsMonitor
 {
@@ -25,47 +26,33 @@ namespace Moon.AppMetricsMonitor
 
         IConfiguration configuration;
 
+        private void InfluxDbConfiger(App.Metrics.Reporting.InfluxDB.MetricsReportingInfluxDbOptions x)
+        {
+            x.InfluxDb.BaseUri = new Uri("http://47.99.65.174:8086/");
+            x.InfluxDb.Database = "AppMetricsData";
+            x.InfluxDb.UserName = "user";
+            x.InfluxDb.CreateDataBaseIfNotExists = true;
+            x.InfluxDb.Password = "123456";
+
+            //刷新时间
+            x.FlushInterval = TimeSpan.FromSeconds(20);
+
+            //x.Filter = new MetricsFilter().WhereType(MetricType.Timer);
+
+            //x.InfluxDb.RetensionPolicy = "rp";
+            x.InfluxDb.CreateDataBaseIfNotExists = true;
+            x.HttpPolicy.BackoffPeriod = TimeSpan.FromSeconds(30);
+            x.HttpPolicy.FailuresBeforeBackoff = 5;
+            x.HttpPolicy.Timeout = TimeSpan.FromSeconds(10);
+            //x.MetricsOutputFormatter = new MetricsInfluxDbLineProtocolOutputFormatter();
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //var metricsFilter = new MetricsFilter().WhereType(MetricType.Meter, MetricType.Gauge, MetricType.Histogram);
-
-            var metrics = AppMetrics.CreateDefaultBuilder()
-                //配置服务信息
-                .Configuration.Configure(x =>
-                {
-                    //x.AddAppTag("Moon APP");
-                    //x.AddEnvTag("Developer");
-                    //x.AddServerTag("LocationServer");
-                })                
-                //输出到 InfluxDB 
-                //.Report.ToInfluxDb(x =>
-                //{
-                //    x.InfluxDb.BaseUri = new Uri("http://47.99.65.174:8086/");
-                //    x.InfluxDb.Database = "AppMetricsData";
-                //    x.InfluxDb.UserName = "user";
-                //    x.InfluxDb.CreateDataBaseIfNotExists = true;
-                //    x.InfluxDb.Password = "123456";
-
-                //    //刷新时间
-                //    x.FlushInterval = TimeSpan.FromSeconds(20);
-
-                //    //x.Filter = new MetricsFilter().WhereType(MetricType.Timer);
-
-                //    //x.InfluxDb.RetensionPolicy = "rp";
-                //    x.InfluxDb.CreateDataBaseIfNotExists = true;
-                //    x.HttpPolicy.BackoffPeriod = TimeSpan.FromSeconds(30);
-                //    x.HttpPolicy.FailuresBeforeBackoff = 5;
-                //    x.HttpPolicy.Timeout = TimeSpan.FromSeconds(10);
-                //    //x.MetricsOutputFormatter = new MetricsInfluxDbLineProtocolOutputFormatter();
-                //})
-                .Build();
-
-            services.AddMetrics(metrics);
-            services.AddMetricsTrackingMiddleware();
-
-            services.AddMetricsReportScheduler();
+            //AppMetrics 初始化注册
+            AppMetricsConfiger.AddService(services, configuration);
 
             services.AddMvc();//.AddMetrics();
         }
@@ -73,11 +60,8 @@ namespace Moon.AppMetricsMonitor
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
-            app.UseMetricsAllMiddleware();
-            //app.UseMetricsApdexTrackingMiddleware();
-            //app.UseMetricsErrorTrackingMiddleware();
-            //app.UseMetricsRequestTrackingMiddleware();
-            //app.UseMetricsActiveRequestMiddleware();
+            //注册中间件
+            AppMetricsConfiger.UseMiddleware(app);
 
             app.UseMvcWithDefaultRoute();
         }
