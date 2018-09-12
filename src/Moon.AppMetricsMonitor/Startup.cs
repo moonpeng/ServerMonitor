@@ -54,7 +54,7 @@ namespace Moon.AppMetricsMonitor
             //AppMetrics 初始化注册
             AppMetricsConfiger.AddService(services, configuration);
 
-            services.AddMvc();//.AddMetrics();
+            services.AddMvc().AddMetrics();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

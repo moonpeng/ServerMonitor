@@ -66,6 +66,7 @@ namespace Moon.AppMetricsMonitor.Internal
         {
             var configer = Configuration.GetSection("MetricsOptions");
 
+            
             options.AddAppTag(configer.GetValue<string>("DefaultContextLabel"));
             //options.AddEnvTag("Developer");
             //options.AddServerTag("LocationServer");
