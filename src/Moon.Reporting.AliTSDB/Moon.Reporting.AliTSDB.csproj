@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Moon.Formatters.AliTSDB\Moon.Formatters.AliTSDB.csproj" />
+    <ProjectReference Include="..\Moon.Formatters.AliTSDB\Moon.Formatters.AliTSDB.csproj" />
   </ItemGroup>
 
 </Project>

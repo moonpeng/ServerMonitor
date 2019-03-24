@@ -1,17 +1,14 @@
 ﻿using App.Metrics;
 using App.Metrics.Formatters.InfluxDB;
-using Hishop.AspNetCore.AppMetrics;
-using Microsoft.AspNetCore.Mvc;
+using Moon.AspNetCore.AppMetrics;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
     /// 监控
     /// </summary>
-    public static class HishopAspNetCoreMetricsDependencyInjection
+    public static class AspNetCoreMetricsDependencyInjection
     {
         /// <summary>
         /// 注册监控
@@ -19,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <param name="metricsOption"></param>
         /// <returns></returns>
-        public static IServiceCollection AddHishopMetrics(this IServiceCollection services, HishopMetricsOptions metricsOption)
+        public static IServiceCollection AddMoonMetrics(this IServiceCollection services, Moon.AspNetCore.AppMetrics.MetricsOptions metricsOption)
         {
             var builder = AppMetrics.CreateDefaultBuilder();
 
@@ -54,7 +51,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddMetrics(builder.Build());
             services.AddMetricsTrackingMiddleware();
-
             services.AddMetricsReportScheduler();
 
             return services;

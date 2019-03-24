@@ -1,19 +1,16 @@
-﻿using App.Metrics;
-using App.Metrics.Formatters.InfluxDB;
-using App.Metrics.Reporting.InfluxDB;
-using System;
+﻿using System;
 
-namespace Hishop.AspNetCore.AppMetrics
+namespace Moon.AspNetCore.AppMetrics
 {
     /// <summary>
     /// 监控配置信息
     /// </summary>
-    public class HishopMetricsOptions
+    public class MetricsOptions
     {
         /// <summary>
         /// 构造函数
         /// </summary>
-        public HishopMetricsOptions()
+        public MetricsOptions()
         {
             CreateDataBaseIfNotExists = true;
 
@@ -68,14 +65,18 @@ namespace Hishop.AspNetCore.AppMetrics
         /// 刷新时间
         /// </summary>
         public TimeSpan FlushInterval { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public TimeSpan BackoffPeriod { get; set; }
 
         /// <summary>
         /// 超时时间
         /// </summary>
         public TimeSpan Timeout { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public int FailuresBeforeBackoff { get; set; }
     }
 }

@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="App_Cores\" />
     <Folder Include="App_Filters\" />
+    <Folder Include="Internal\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -22,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\InfluxDB\src\App.Metrics.Reporting.InfluxDB\App.Metrics.Reporting.InfluxDB.csproj" />
+    <ProjectReference Include="..\Hishop.AspNetCore.AppMetrics\Moon.AspNetCore.AppMetrics.csproj" />
   </ItemGroup>
 
 </Project>

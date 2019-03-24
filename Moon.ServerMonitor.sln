@@ -5,9 +5,13 @@ VisualStudioVersion = 15.0.28010.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moon.AppMetricsMonitor", "src\Moon.AppMetricsMonitor\Moon.AppMetricsMonitor.csproj", "{D1EBE744-58C3-4979-98DF-FE7B3DFD60B4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Metrics.Reporting.InfluxDB", "..\InfluxDB\src\App.Metrics.Reporting.InfluxDB\App.Metrics.Reporting.InfluxDB.csproj", "{61726D9E-53C3-4420-8858-C39D541A0F4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moon.AspNetCore.AppMetrics", "src\Hishop.AspNetCore.AppMetrics\Moon.AspNetCore.AppMetrics.csproj", "{0E06CB52-55F6-4B79-B9A9-B7CB0003D203}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Metrics.Formatters.InfluxDB", "..\InfluxDB\src\App.Metrics.Formatters.InfluxDB\App.Metrics.Formatters.InfluxDB.csproj", "{E3834665-3D09-4998-A041-7C19AECEC98C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moon.Formatters.AliTSDB", "src\Moon.Formatters.AliTSDB\Moon.Formatters.AliTSDB.csproj", "{E430CDBC-8DC5-401D-9182-42B6E31FF61D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moon.Reporting.AliTSDB", "src\Moon.Reporting.AliTSDB\Moon.Reporting.AliTSDB.csproj", "{9C7A896D-0682-4F46-B79D-7C71C7652614}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AliTSDB", "AliTSDB", "{A07187B8-8E48-4581-BD64-D5AD083BBF9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,17 +23,25 @@ Global
 		{D1EBE744-58C3-4979-98DF-FE7B3DFD60B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1EBE744-58C3-4979-98DF-FE7B3DFD60B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1EBE744-58C3-4979-98DF-FE7B3DFD60B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{61726D9E-53C3-4420-8858-C39D541A0F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61726D9E-53C3-4420-8858-C39D541A0F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61726D9E-53C3-4420-8858-C39D541A0F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61726D9E-53C3-4420-8858-C39D541A0F4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3834665-3D09-4998-A041-7C19AECEC98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3834665-3D09-4998-A041-7C19AECEC98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3834665-3D09-4998-A041-7C19AECEC98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3834665-3D09-4998-A041-7C19AECEC98C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E06CB52-55F6-4B79-B9A9-B7CB0003D203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E06CB52-55F6-4B79-B9A9-B7CB0003D203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E06CB52-55F6-4B79-B9A9-B7CB0003D203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E06CB52-55F6-4B79-B9A9-B7CB0003D203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E430CDBC-8DC5-401D-9182-42B6E31FF61D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E430CDBC-8DC5-401D-9182-42B6E31FF61D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E430CDBC-8DC5-401D-9182-42B6E31FF61D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E430CDBC-8DC5-401D-9182-42B6E31FF61D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C7A896D-0682-4F46-B79D-7C71C7652614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C7A896D-0682-4F46-B79D-7C71C7652614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C7A896D-0682-4F46-B79D-7C71C7652614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C7A896D-0682-4F46-B79D-7C71C7652614}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E430CDBC-8DC5-401D-9182-42B6E31FF61D} = {A07187B8-8E48-4581-BD64-D5AD083BBF9A}
+		{9C7A896D-0682-4F46-B79D-7C71C7652614} = {A07187B8-8E48-4581-BD64-D5AD083BBF9A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2316D100-F45C-4D24-BD96-8056FF2A5FAA}

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Hishop.AspNetCore.AppMetrics.Internal
+﻿namespace Moon.AspNetCore.AppMetrics.Internal
 {
     /// <summary>
     /// 内部配置信息
     /// </summary>
-    internal static class HishopMetricsConfig
+    internal static class MetricsConfig
     {
         /// <summary>
         /// 活动的请求
