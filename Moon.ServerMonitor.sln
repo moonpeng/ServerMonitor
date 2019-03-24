@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moon.Formatters.AliTSDB", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moon.Reporting.AliTSDB", "src\Moon.Reporting.AliTSDB\Moon.Reporting.AliTSDB.csproj", "{9C7A896D-0682-4F46-B79D-7C71C7652614}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AliTSDB", "AliTSDB", "{A07187B8-8E48-4581-BD64-D5AD083BBF9A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,10 +36,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{E430CDBC-8DC5-401D-9182-42B6E31FF61D} = {A07187B8-8E48-4581-BD64-D5AD083BBF9A}
-		{9C7A896D-0682-4F46-B79D-7C71C7652614} = {A07187B8-8E48-4581-BD64-D5AD083BBF9A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2316D100-F45C-4D24-BD96-8056FF2A5FAA}
